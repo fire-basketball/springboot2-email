@@ -1,0 +1,75 @@
+
+一.代码实现:
+
+    发送文本邮件
+
+    发送HTML邮件
+
+    发送附件邮件
+
+    发送带图片的邮件
+
+    邮件模板
+
+    邮件系统
+
+
+二.邮件使用背景:
+
+    注册验证
+
+    网站营销
+
+    安全的最后一道防线
+
+    提醒,监控警告
+
+    触发机制
+
+三.发送邮件的原理:
+
+    邮件传输协议: SMTP(把邮件从一台服务器发送到另外一台服务器)协议和POP3(把邮件从服务器上拿下来看)协议
+
+    内容不断发展: IMAP(保持客户端和服务器上的邮件的状态一致)协议和Mime(通过SMTP进行传输)协议
+
+
+四.简单文本邮件
+
+    引入相关jar包
+
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-email</artifactId>
+        </dependency>
+
+    配置邮箱参数
+
+        spring.mail.host=smtp.huluwa.cc   //采用smtp形式的传输方式
+        spring.mail.username=liguohui@huluwa.cc
+        spring.mail.password=Huluwa110
+        spring.mail.default-encoding=UTF-8
+
+    封装SimpleMailMessage
+
+        @Autowired
+        private JavaMailSender mailSender;
+        @Value("${spring.mail.username}")
+        private String from;
+
+    JavaMailSender进行发送
+
+    //封装邮件发送方法
+     public void sendSimpleMail(String to,String subject,String content){
+            SimpleMailMessage message = new SimpleMailMessage();
+            message.setTo(to);
+            message.setSubject(subject);
+            message.setText(content);
+            message.setFrom(from);
+            mailSender.send(message);
+
+        }
+
+
+
+
+
